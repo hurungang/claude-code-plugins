@@ -1,0 +1,14 @@
+{
+  "name": "hurung-plugins",
+  "owner": {
+    "name": "hurungang"
+  },
+  "plugins": [
+    {
+      "name": "myaider-skill-importer",
+      "source": "./myaider-skill-importer",
+      "description": "Import and create skills from MyAider MCP into Claude Code skills",
+      "version": "1.0.0"
+    }
+  ]
+}
