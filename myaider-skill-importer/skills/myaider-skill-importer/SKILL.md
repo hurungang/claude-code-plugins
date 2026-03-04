@@ -1,13 +1,13 @@
 ---
 name: myaider-skill-importer
-description: Import and create skills from MyAider MCP. Use this skill whenever the user wants to import their MyAider MCP skills into Claude Code skills. This skill checks if MyAider MCP is configured, retrieves available skills, presents them to the user for selection, and uses skill-creator to create each selected skill properly.
+description: Import and create skills from MyAider MCP. Use this skill whenever the user wants to import their MyAider MCP skills into agent skills. This skill checks if MyAider MCP is configured, retrieves available skills, presents them to the user for selection, and uses skill-creator to create each selected skill properly.
 compatibility: []
 ---
 
 # MyAider Skill Importer
 
 ## Purpose
-Automate the process of importing skills from the MyAider MCP server into Claude Code skills. This skill retrieves available skills, lets the user choose which ones to import, and creates proper skill files for each.
+Automate the process of importing skills from the MyAider MCP server into agent skills. This skill retrieves available skills, lets the user choose which ones to import, and creates proper skill files for each.
 
 ## MANDATORY WORKFLOW
 
@@ -21,7 +21,7 @@ Before proceeding, verify that the MyAider MCP server is configured. Try calling
   >
   > **Setup Instructions:**
   > 1. Go to https://www.myaider.ai/mcp
-  > 2. Follow the instructions to configure the MyAider MCP server for Claude Code
+  > 2. Follow the instructions to configure the MyAider MCP server for your agent
   > 3. Once configured, come back and ask me to import your MyAider skills
 
   Do NOT proceed until the user confirms MyAider is configured.
