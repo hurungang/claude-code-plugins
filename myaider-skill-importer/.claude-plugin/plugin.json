@@ -1,6 +1,6 @@
 {
   "name": "myaider-skill-importer",
-  "description": "Import and create skills from MyAider MCP into Claude Code skills",
+  "description": "Import and create skills from MyAider MCP into agent skills",
   "version": "1.0.0",
   "skills": ["./skills"]
 }
