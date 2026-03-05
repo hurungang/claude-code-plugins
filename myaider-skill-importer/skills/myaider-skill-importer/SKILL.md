@@ -7,12 +7,12 @@ compatibility: []
 # MyAider Skill Importer
 
 ## Purpose
-Automate the process of importing skills from the MyAider MCP server into Claude Code skills. This skill retrieves available skills, lets the user choose which ones to import, and creates proper skill files for each.
+Automate the process of importing skills from the MyAider MCP server into Claude Code skills. This skill retrieves available skills, lets the user choose which ones to import, and creates proper skill files for each using existing skill-creator skill.
 
 ## MANDATORY WORKFLOW
 
-### Step 0 — REQUIRED: Check MyAider MCP Configuration
-Before proceeding, verify that the MyAider MCP server is configured. Try calling `mcp__myaider__getSkills` with an empty object `{}`.
+### Step 0 — REQUIRED: Check MyAider MCP Configuration and skill-creator Skill
+Before proceeding, verify that the MyAider MCP server is configured. Try calling `mcp__myaider__getSkills` with an empty object `{}`. Make sure the MCP server is named as myaider, otherwise use the name that user defined to do test.
 
 - **If the call succeeds**: Continue to Step 1
 - **If the call fails** (MCP not configured): Inform the user that MyAider MCP needs to be set up first, and provide these instructions:
@@ -25,6 +25,8 @@ Before proceeding, verify that the MyAider MCP server is configured. Try calling
   > 3. Once configured, come back and ask me to import your MyAider skills
 
   Do NOT proceed until the user confirms MyAider is configured.
+  
+Check if skill-creator skill is available, if not ask user to install skill-creator.
 
 ### Step 1 — REQUIRED: Get Available Skills
 Call `mcp__myaider__getSkills` with an empty object `{}` to retrieve all available skills from MyAider.
@@ -46,7 +48,7 @@ For each skill the user wants to import:
    - **Tools with FULL usage details**: Extract each tool's name, description, and parameter schema from the "Tools" section in the getSkills result
 
 2. **Create a properly formatted skill using skill-creator**:
-   Use the Skill tool to invoke `skill-creator:skill-creator` with this template:
+   YOU MUST create the skill automatically instead of ask user to do it manually. YOU MUST use the Skill tool to invoke `skill-creator:skill-creator` with this template:
 
    ```
    Create a new skill called "[skill-name]" based on the following specification:
