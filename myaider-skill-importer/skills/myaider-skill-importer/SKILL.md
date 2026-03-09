@@ -33,6 +33,8 @@ Extract the server name from the middle segment and store it as `{SERVER_NAME}`.
   > 1. Go to https://www.myaider.ai/mcp
   > 2. Follow the instructions to configure the MyAider MCP server for your agent
   > 3. Once configured, come back and ask me to import your MyAider skills
+  >
+  > **Note for OpenCLAW agents:** If you are running on OpenCLAW (or similar agent without native MCP support), the MyAider MCP may be available via the OpenCLAW myaider plugin, which provides an HTTP transport MCP client. Check if the myaider plugin is installed and use it to access the MCP tools.
 
   Do NOT proceed until the user confirms MyAider is configured.
 
