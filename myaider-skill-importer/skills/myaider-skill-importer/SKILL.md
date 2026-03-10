@@ -55,11 +55,15 @@ Wait for user confirmation before proceeding.
 ### Step 3 — REQUIRED: For Each Selected Skill
 For each skill the user wants to import:
 
-1. **Extract the skill specification** from the getSkills result:
-   - Skill name
-   - Description (from the Usage Instructions or summary)
-   - Usage Instructions (the main content)
-   - **Tools with FULL usage details**: Extract each tool's name, description, and parameter schema from the "Tools" section in the getSkills result
+1. **Extract the skill specification** from the getSkills result (new array schema):
+   - `skill.name` — skill identifier
+   - `skill.description` — skill description
+   - `skill.updated_at` — ISO 8601 timestamp (e.g., "2026-03-06T10:30:00Z")
+   - `skill.instructions` — full usage instructions
+   - `skill.tools` — array of tools, each with:
+     - `tool.name` — tool identifier
+     - `tool.description` — tool description
+     - `tool.inputSchema` — JSON schema for tool parameters
 
 2. **Create a properly formatted skill using skill-creator**:
    YOU MUST create the skill automatically instead of ask user to do it manually. YOU MUST use the Skill tool to invoke `skill-creator:skill-creator` with this template:
@@ -71,30 +75,30 @@ For each skill the user wants to import:
    [skill-name]
 
    ## Description
-   [description - make it comprehensive with triggering guidance]
+   [skill.description - make it comprehensive with triggering guidance]
 
    ## Metadata
    Add the following fields to the skill's YAML frontmatter (in addition to name and description):
    - source: myaider
-   - updated_at: [ISO 8601 timestamp from the remote skill, e.g. 2026-03-06T12:00:00Z]
+   - updated_at: [skill.updated_at ISO 8601 timestamp, e.g. 2026-03-06T10:30:00Z]
 
    ## Usage Instructions
-   [full usage instructions from the myaider skill]
+   [skill.instructions - full usage instructions from the myaider skill]
 
    ## Tools (MCP {SERVER_NAME})
    This skill uses the following MCP tools from {SERVER_NAME}. Include the full tool descriptions and parameter schemas BELOW to optimize token usage - the skill should NOT rely on the MCP protocol to get tool descriptions:
 
    ### [tool-name-1]
-   [full tool description from get_myaider_skills result]
+   [tool.description from skill.tools array]
 
    **Parameters:**
-   [parameter schema - include all parameters with their types, required/optional status, and descriptions]
+   [tool.inputSchema - full JSON schema including all parameters with their types, required/optional status, and descriptions]
 
    ### [tool-name-2]
-   [full tool description from get_myaider_skills result]
+   [tool.description from skill.tools array]
 
    **Parameters:**
-   [parameter schema - include all parameters with their types, required/optional status, and descriptions]
+   [tool.inputSchema - full JSON schema including all parameters with their types, required/optional status, and descriptions]
    ```
 
    **Critical**: The extracted tool descriptions and schemas must be included directly in the skill to avoid MCP protocol overhead. This optimizes token usage by enabling the skill to function without calling the MCP protocol for tool introspection.
@@ -120,7 +124,7 @@ Same as the main Step 0. Search for `get_myaider_skills` to find `{SERVER_NAME}`
 Call `mcp__{SERVER_NAME}__get_myaider_skill_updates` with an empty object `{}`. This returns the latest skill definitions with their `updated_at` timestamps.
 
 ### Upgrade Step 2 — Read local MyAider skills
-Find all locally installed skills that have `source: myaider` in their YAML frontmatter. For each, read the `updated_at` value. Build a map of `skill-name → local updated_at`.
+Find all locally installed skills that have `source: myaider` in their YAML frontmatter. For each, read the `updated_at` value (the new schema uses ISO 8601 format like "2026-03-06T10:30:00Z"). Build a map of `skill-name → local updated_at`.
 
 ### Upgrade Step 3 — Compare and classify
 For each skill returned in Upgrade Step 1:
@@ -148,6 +152,7 @@ Provide a final report:
 ## Important Constraints
 - Always discover the MCP server name by searching for `get_myaider_skills` first (Step 0) — do NOT hardcode `myaider` or any other name
 - Always call `get_myaider_skills` after confirming MCP is configured — do NOT guess what skills are available
+- The new skills array schema returns: `name`, `description`, `updated_at`, `instructions`, and `tools[]` with `name`, `description`, `inputSchema`. Always extract these exact fields.
 - **Always extract and include FULL tool descriptions and schemas** from `get_myaider_skills` — this is critical to optimize token usage. The created skill should work without needing MCP protocol tool introspection
 - Use the discovered `{SERVER_NAME}` consistently for all MCP tool calls and in generated skill files
 - Always include `source: myaider` and `updated_at` in the YAML frontmatter of every created or upgraded skill — these fields are required for the upgrade workflow
