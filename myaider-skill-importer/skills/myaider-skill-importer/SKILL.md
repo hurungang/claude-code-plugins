@@ -13,7 +13,7 @@ Automate the process of importing skills from the MyAider MCP server into agent 
 
 ### Step 0 — REQUIRED: Discover MyAider MCP Server Name and Check skill-creator Skill
 
-**Note on naming convention:** MCP tool identifiers follow the format `mcp__<server-name>__<tool-name>`. The server name is whatever the user chose when configuring the MCP — it may not be `myaider`. Always discover the actual name rather than assuming it.
+**Note on naming convention:** MCP tool identifiers follow the format `mcp__<server-name>__<tool-name>`. The server name is whatever the user chose when configuring the MCP — it may nor may not be `myaider`. If you couldn't find the `myaider` related one in your available mcp servers, then try discover the actual name rather than assuming it.
 
 The MyAider MCP server exposes a distinctively named tool called `get_myaider_skills`. Because this name is unique to MyAider, searching for it avoids conflicts with other MCP servers.
 
@@ -33,8 +33,6 @@ Extract the server name from the middle segment and store it as `{SERVER_NAME}`.
   > 1. Go to https://www.myaider.ai/mcp
   > 2. Follow the instructions to configure the MyAider MCP server for your agent
   > 3. Once configured, come back and ask me to import your MyAider skills
-  >
-  > **Note for OpenCLAW agents:** If you are running on OpenCLAW (or similar agent without native MCP support), the MyAider MCP may be available via the OpenCLAW myaider plugin, which provides an HTTP transport MCP client. Check if the myaider plugin is installed and use it to access the MCP tools.
 
   Do NOT proceed until the user confirms MyAider is configured.
 
