@@ -2,6 +2,8 @@
 name: myaider-skill-importer
 description: Import, create, and upgrade skills from MyAider MCP. Use this skill whenever the user wants to import their MyAider MCP skills into agent skills, or upgrade/update existing MyAider skills to the latest version. This skill checks if MyAider MCP is configured, retrieves available skills, presents them to the user for selection, and uses skill-creator to create or update each selected skill properly.
 compatibility: []
+version: "1.0.0"
+updated_at: 2026-04-20T00:00:00Z
 ---
 
 # MyAider Skill Importer
